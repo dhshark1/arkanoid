@@ -1,0 +1,55 @@
+<project default="compile">
+    <!-- Define a set of paths (file names) to pass to checkstyle - all .java files under `src` and its subdirectories (recursively)-->
+    <path id="sourceFiles">
+        <fileset dir="src" casesensitive="yes">
+            <include name="**/*.java"/>
+        </fileset>
+    </path>
+
+    <!-- Define a property, which is like a variable for the build file, -->
+    <!--  with the classpath for all compilation & execution targets. -->
+    <property name="classpath" value="bin" />
+
+    <!-- Compile all java files under `src`, and export .class files into `bin` -->
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac classpath="${classpath}" srcdir="src" destdir="bin" includeantruntime="false"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+
+    <!--    This target is for your convenience; we will not grade it. -->
+    <target name="run-gui-example" depends="compile" >
+        <java classname="SimpleGuiExample" classpath="${classpath}" fork="true"/>
+    </target>
+
+    <target name="run" depends="compile" >
+        <java classname="ExpressionsTest" classpath="${classpath}" fork="true"/>
+    </target>
+
+    <!-- Run checkstyle on all our source files -->
+    <target name="check">
+        <java jar="checkstyle-5.7-all.jar" fork="true">
+            <arg line="-c biuoop.xml" />
+            <arg line="src/BaseExpression.java" />
+            <arg line="src/BinaryExpression.java" />
+            <arg line="src/Cos.java" />
+            <arg line="src/Div.java" />
+            <arg line="src/Expression.java" />
+            <arg line="src/ExpressionsTest.java" />
+            <arg line="src/Log.java" />
+            <arg line="src/Minus.java" />
+            <arg line="src/Mult.java" />
+            <arg line="src/Neg.java" />
+            <arg line="src/Num.java" />
+            <arg line="src/Plus.java" />
+            <arg line="src/Pow.java" />
+            <arg line="src/Sin.java" />
+            <arg line="src/UnaryExpression.java" />
+            <arg line="src/Var.java" />
+        </java>
+    </target>
+
+</project>
